@@ -1,0 +1,43 @@
+{
+  "id": "billora-dev-env",
+  "name": "Billora Dev Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "resetToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "invoiceId",
+      "value": "6a81863dfeecf4294233d90b",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "clientId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "shareToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
