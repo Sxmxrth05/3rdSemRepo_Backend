@@ -8,37 +8,60 @@
 
 console.log("=== Task 02: Node.js Modules Demo ===");
 
-// TODO 1: Require Node's built-in 'os' module
-// Hint: const os = require('os');
-// YOUR CODE HERE:
+// ========================================================
+// STEP 1: Require Node's Built-in 'os' and 'path' Modules
+// 💡 Concept: Built-in modules need no './' prefix and no npm install.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the 2 lines below:
+// ========================================================
+// const os = require('os');
+// const path = require('path');
 
 
-// TODO 2: Require Node's built-in 'path' module
-// Hint: const path = require('path');
-// YOUR CODE HERE:
+// ========================================================
+// STEP 2: Require the Local User-Defined Module './math'
+// 💡 Concept: Local files MUST start with './' or '../'.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// const math = require('./math');
 
 
-// TODO 3: Require the local user-defined module './math'
-// Hint: const math = require('./math');
-// YOUR CODE HERE:
+// ========================================================
+// STEP 3: Using Built-in 'os' Module
+// 💡 Concept: os.arch() gives CPU architecture; os.freemem() gives RAM in bytes.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the lines below:
+// ========================================================
+// console.log(`[Built-in os] Architecture: ${os.arch()}`);
+// const freeMemMB = Math.round(os.freemem() / (1024 * 1024));
+// console.log(`[Built-in os] Free Memory: ${freeMemMB} MB`);
 
 
-// 4. Using Built-in 'os' Module
-// TODO: Print the OS Architecture (os.arch()) and Free Memory in Megabytes (Math.round(os.freemem() / 1024 / 1024))
-// YOUR CODE HERE:
+// ========================================================
+// STEP 4: Using Built-in 'path' Module
+// 💡 Concept: path.join() handles cross-platform path separators (\ vs /).
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the lines below:
+// ========================================================
+// const joinedPath = path.join('students', 'reports', 'marksheet.pdf');
+// console.log(`[Built-in path] Joined Path: ${joinedPath}`);
 
 
-// 5. Using Built-in 'path' Module
-// TODO: Use path.join('students', 'reports', 'marksheet.pdf') and print the joined path
-// YOUR CODE HERE:
-
-
-// 6. Using Custom 'math' Module
-// TODO:
-// - Add 25 and 75 using math.add() and print the result.
-// - Calculate average of marks [80, 85, 90] using math.calculateAverage() and print the result.
-// - Format the name "Asha" and "Sharma" using math.formatStudentName() and print the result.
-// YOUR CODE HERE:
+// ========================================================
+// STEP 5: Using Custom 'math' Module
+// 💡 Concept: Access exported helper functions directly on the math object.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the lines below:
+// ========================================================
+// const sum = math.add(25, 75);
+// console.log(`[Custom math] 25 + 75 = ${sum}`);
+//
+// const avg = math.calculateAverage([80, 85, 90]);
+// console.log(`[Custom math] Average Marks: ${avg}`);
+//
+// const fullName = math.formatStudentName("Asha", "Sharma");
+// console.log(`[Custom math] Student Name: ${fullName}`);
 
 
 console.log("=== Module Execution Completed Successfully ===");

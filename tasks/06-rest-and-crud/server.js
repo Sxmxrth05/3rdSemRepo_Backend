@@ -1,12 +1,12 @@
 /**
- * Task 06: Student Management REST API (CRUD)
+ * Task 06: Student Management REST API (CRUD Operations)
  *
- * Implements:
- * - GET    /students       (Read all)
- * - GET    /students/:id   (Read one)
- * - POST   /students       (Create)
- * - PUT    /students/:id   (Update)
- * - DELETE /students/:id   (Delete)
+ * Endpoints:
+ * - GET    /students       (Read all students)
+ * - GET    /students/:id   (Read student by ID)
+ * - POST   /students       (Create new student -> 201 Created)
+ * - PUT    /students/:id   (Update existing student)
+ * - DELETE /students/:id   (Delete student)
  */
 
 const express = require('express');
@@ -14,16 +14,20 @@ const app = express();
 
 const PORT = 3000;
 
-// Middleware to parse incoming JSON bodies
-app.use(express.json());
+// ========================================================
+// STEP 1: Enable JSON Body Parsing Middleware
+// 💡 Concept: express.json() parses incoming request bodies with JSON payloads
+//             and populates req.body. Without this, req.body is undefined!
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// app.use(express.json());
 
-// In-memory data store for students
 let students = [
   { id: 1, name: "Asha", course: "CSE" },
   { id: 2, name: "Rahul", course: "CSE" }
 ];
 
-// Helper to reset data during automated tests
 function resetStudents() {
   students = [
     { id: 1, name: "Asha", course: "CSE" },
@@ -31,55 +35,90 @@ function resetStudents() {
   ];
 }
 
-// 1. GET /students - Retrieve all students
-app.get('/students', (req, res) => {
-  // TODO: Return all students in the array as JSON
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
+// ========================================================
+// STEP 2: GET /students (Retrieve all students)
+// 💡 Concept: Returns full list of students with HTTP 200 OK.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/students', (req, res) => {
+//   res.json(students);
+// });
 
-// 2. GET /students/:id - Retrieve a single student by id
-app.get('/students/:id', (req, res) => {
-  // TODO: Parse id from req.params.id
-  // Find student in students array
-  // If not found, return 404 with { error: "Student not found" }
-  // If found, return 200 with student object
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
 
-// 3. POST /students - Create a new student
-app.post('/students', (req, res) => {
-  // TODO: Extract name and course from req.body
-  // Generate a unique id
-  // Create student object { id, name, course }
-  // Add to students array
-  // Return status 201 with newly created student
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
+// ========================================================
+// STEP 3: GET /students/:id (Retrieve single student by ID)
+// 💡 Concept: Route parameters are accessed via req.params.
+//             Convert req.params.id string to number using parseInt().
+//             Return 404 Not Found if student doesn't exist.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const student = students.find(s => s.id === id);
+//   if (!student) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//   res.json(student);
+// });
 
-// 4. PUT /students/:id - Update an existing student
-app.put('/students/:id', (req, res) => {
-  // TODO: Parse id from req.params.id
-  // Find student in students array
-  // If not found, return 404 with { error: "Student not found" }
-  // Update name and course if provided in req.body
-  // Return status 200 with updated student
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
 
-// 5. DELETE /students/:id - Delete a student by id
-app.delete('/students/:id', (req, res) => {
-  // TODO: Parse id from req.params.id
-  // Find student index in students array
-  // If not found (index === -1), return 404 with { error: "Student not found" }
-  // Remove student from array using splice
-  // Return status 200 with { message: "Student deleted successfully" }
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
+// ========================================================
+// STEP 4: POST /students (Create new student)
+// 💡 Concept: Read { name, course } from req.body.
+//             Auto-generate unique ID: Math.max(...ids) + 1.
+//             Return HTTP 201 Created with the new student object.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.post('/students', (req, res) => {
+//   const { name, course } = req.body;
+//   const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
+//   const newStudent = { id: nextId, name, course };
+//   students.push(newStudent);
+//   res.status(201).json(newStudent);
+// });
+
+
+// ========================================================
+// STEP 5: PUT /students/:id (Update student)
+// 💡 Concept: Find existing student by ID (or return 404).
+//             Update fields provided in req.body.
+//             Return updated student object with HTTP 200 OK.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.put('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const student = students.find(s => s.id === id);
+//   if (!student) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//   if (req.body.name !== undefined) student.name = req.body.name;
+//   if (req.body.course !== undefined) student.course = req.body.course;
+//   res.json(student);
+// });
+
+
+// ========================================================
+// STEP 6: DELETE /students/:id (Delete student)
+// 💡 Concept: Find index using findIndex(). If -1, return 404.
+//             Remove item using students.splice(index, 1).
+//             Return success message with HTTP 200 OK.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.delete('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const index = students.findIndex(s => s.id === id);
+//   if (index === -1) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//   students.splice(index, 1);
+//   res.json({ message: "Student deleted successfully" });
+// });
+
 
 if (require.main === module) {
   app.listen(PORT, () => {
@@ -87,4 +126,5 @@ if (require.main === module) {
   });
 }
 
+// Export app and reset helper for automated tests (run: npm run test:06)
 module.exports = { app, resetStudents };

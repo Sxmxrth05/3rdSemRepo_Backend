@@ -1,45 +1,57 @@
 /**
- * Task 05: Express Basics & JSON Responses
+ * Task 05: Express Basics
  *
  * Requirements:
  * - Initialize an Express application
- * - Route GET / -> "Welcome to Express Student Management API"
- * - Route GET /students -> JSON array of students
+ * - GET /         -> 200 "Welcome to Express Student Management API"
+ * - GET /students -> 200 JSON array of students
  * - Listen on port 3000
  */
 
-// TODO 1: Require the 'express' package
 const express = require('express');
-
-// TODO 2: Initialize the Express app
 const app = express();
 
 const PORT = 3000;
 
-// Sample initial student data
 const students = [
   { id: 1, name: "Asha", course: "CSE" },
   { id: 2, name: "Rahul", course: "CSE" }
 ];
 
-// TODO 3: Create a GET route for '/'
-// Return the string: "Welcome to Express Student Management API"
-app.get('/', (req, res) => {
-  res.send("Welcome to Express Student Management API");
-});
+// ========================================================
+// STEP 1: GET / (Root Route)
+// 💡 Concept: app.get(path, handler) routes HTTP GET requests.
+//             res.send() automatically sets status 200 and Content-Type.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/', (req, res) => {
+//   res.send("Welcome to Express Student Management API");
+// });
 
-// TODO 4: Create a GET route for '/students'
-// Return the students array as JSON
-app.get('/students', (req, res) => {
-  res.json(students);
-});
 
-// Listen on port 3000 if executed directly
-if (require.main === module && typeof app !== 'undefined') {
-  app.listen(PORT, () => {
-    console.log(`Express server running on port ${PORT}`);
-  });
-}
+// ========================================================
+// STEP 2: GET /students (JSON Endpoint)
+// 💡 Concept: res.json(data) automatically formats data as JSON
+//             and sets 'Content-Type: application/json'.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/students', (req, res) => {
+//   res.json(students);
+// });
 
-// Export the app for automated testing
+
+// ========================================================
+// STEP 3: Start Server Listener on PORT 3000
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the listener block below:
+// ========================================================
+// if (require.main === module) {
+//   app.listen(PORT, () => {
+//     console.log(`Express server running on port ${PORT}`);
+//   });
+// }
+
+// Export app for automated tests (run: npm run test:05)
 module.exports = app;

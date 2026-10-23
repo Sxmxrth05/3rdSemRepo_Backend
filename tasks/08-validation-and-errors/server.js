@@ -28,69 +28,136 @@ function resetStudents() {
   ];
 }
 
-// 1. GET /students (with optional ?search= query)
-app.get('/students', (req, res) => {
-  // TODO 1:
-  // If req.query.search is present:
-  //   Filter students by name or course case-insensitively
-  //   Return the filtered list
-  // Else:
-  //   Return the full students list
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
-
-// 2. GET /students/:id
-app.get('/students/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const student = students.find(s => s.id === id);
-  if (!student) {
-    return res.status(404).json({ error: "Student not found" });
-  }
-  res.json(student);
-});
-
-// 3. POST /students (with input validation)
-app.post('/students', (req, res) => {
-  // TODO 2:
-  // Validate that req.body.name and req.body.course are provided and not empty strings
-  // If invalid, return 400 Bad Request with { error: "Name and course are required fields" }
-  // If valid, generate next id, add new student to array, and return 201 Created
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
-
-// 4. PUT /students/:id (with validation)
-app.put('/students/:id', (req, res) => {
-  // TODO 3:
-  // Find student by id. If not found, return 404
-  // If neither name nor course is provided in req.body, return 400 with { error: "At least one field (name or course) must be provided" }
-  // Update the fields that were provided
-  // Return 200 with updated student
-  // YOUR CODE HERE:
-  res.status(501).json({ error: "Not implemented yet" });
-});
-
-// 5. DELETE /students/:id
-app.delete('/students/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const index = students.findIndex(s => s.id === id);
-  if (index === -1) {
-    return res.status(404).json({ error: "Student not found" });
-  }
-  students.splice(index, 1);
-  res.json({ message: "Student deleted successfully" });
-});
-
-// TODO 4: 404 Catch-All Middleware for unhandled routes
-// Any request that didn't match a route above should return 404 with { error: "Route not found" }
-// Hint: app.use((req, res) => { ... });
-// YOUR CODE HERE:
+// ========================================================
+// STEP 1: GET /students with Query Parameter (?search=term)
+// 💡 Concept: req.query.search extracts ?search= query value.
+//             Filter by name or course case-insensitively using .includes().
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/students', (req, res) => {
+//   const searchTerm = req.query.search;
+//   if (searchTerm && typeof searchTerm === 'string') {
+//     const term = searchTerm.trim().toLowerCase();
+//     const filtered = students.filter(student =>
+//       (student.name && student.name.toLowerCase().includes(term)) ||
+//       (student.course && student.course.toLowerCase().includes(term))
+//     );
+//     return res.json(filtered);
+//   }
+//   res.json(students);
+// });
 
 
-// TODO 5: Centralized 500 Error-Handling Middleware
-// Hint: app.use((err, req, res, next) => { ... });
-// YOUR CODE HERE:
+// ========================================================
+// STEP 2: GET /students/:id (with 404 error)
+// 💡 Concept: Return { error: "Student not found" } with status 404.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.get('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const student = students.find(s => s.id === id);
+//   if (!student) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//   res.json(student);
+// });
+
+
+// ========================================================
+// STEP 3: POST /students (with Input Validation)
+// 💡 Concept: If name or course is missing/empty, reject with 400 Bad Request.
+//             Otherwise return 201 Created with new student.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.post('/students', (req, res) => {
+//   const { name, course } = req.body || {};
+//
+//   if (!name || typeof name !== 'string' || !name.trim() ||
+//       !course || typeof course !== 'string' || !course.trim()) {
+//     return res.status(400).json({ error: "Name and course are required fields" });
+//   }
+//
+//   const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
+//   const newStudent = {
+//     id: nextId,
+//     name: name.trim(),
+//     course: course.trim()
+//   };
+//
+//   students.push(newStudent);
+//   res.status(201).json(newStudent);
+// });
+
+
+// ========================================================
+// STEP 4: PUT /students/:id (with Validation)
+// 💡 Concept: Check if student exists (404).
+//             Ensure at least one field (name or course) is provided (400).
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.put('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const student = students.find(s => s.id === id);
+//   if (!student) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//
+//   const { name, course } = req.body || {};
+//   const hasName = name !== undefined && typeof name === 'string' && name.trim().length > 0;
+//   const hasCourse = course !== undefined && typeof course === 'string' && course.trim().length > 0;
+//
+//   if (!hasName && !hasCourse) {
+//     return res.status(400).json({ error: "At least one field (name or course) must be provided" });
+//   }
+//
+//   if (hasName) student.name = name.trim();
+//   if (hasCourse) student.course = course.trim();
+//
+//   res.json(student);
+// });
+
+
+// ========================================================
+// STEP 5: DELETE /students/:id
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the route below:
+// ========================================================
+// app.delete('/students/:id', (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const index = students.findIndex(s => s.id === id);
+//   if (index === -1) {
+//     return res.status(404).json({ error: "Student not found" });
+//   }
+//   students.splice(index, 1);
+//   res.json({ message: "Student deleted successfully" });
+// });
+
+
+// ========================================================
+// STEP 6: 404 Catch-All Middleware
+// 💡 Concept: Placed after all routes to catch any unhandled endpoint.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the middleware below:
+// ========================================================
+// app.use((req, res) => {
+//   res.status(404).json({ error: "Route not found" });
+// });
+
+
+// ========================================================
+// STEP 7: Centralized 500 Error-Handling Middleware
+// 💡 Concept: Express identifies error middleware by its 4 arguments (err, req, res, next).
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the error handler below:
+// ========================================================
+// app.use((err, req, res, next) => {
+//   console.error("Internal Server Error:", err);
+//   res.status(500).json({ error: "Internal server error" });
+// });
 
 
 if (require.main === module) {
@@ -99,4 +166,5 @@ if (require.main === module) {
   });
 }
 
+// Export for automated tests (run: npm run test:08)
 module.exports = { app, resetStudents };

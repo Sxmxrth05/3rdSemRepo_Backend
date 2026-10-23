@@ -11,28 +11,40 @@ console.log("===========================================");
 console.log("  Skill Lab Module 3: Node.js Fundamentals");
 console.log("===========================================");
 
-// TODO 1: Print the welcome message: "Welcome to Node.js Backend Development!"
-// Hint: Use console.log()
-// YOUR CODE HERE:
+// ========================================================
+// STEP 1: Print the Welcome Message
+// 💡 Concept: console.log() outputs text to standard terminal output.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// console.log("Welcome to Node.js Backend Development!");
 
 
-// TODO 2: Print the Node.js version using the global process object
-// Expected output format: "Node.js Version: v..."
-// Hint: Inspect process.version
-// YOUR CODE HERE:
+// ========================================================
+// STEP 2: Print the Node.js Version
+// 💡 Concept: process.version gives the runtime version of Node.js.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// console.log(`Node.js Version: ${process.version}`);
 
 
-// TODO 3: Print the operating system platform
-// Expected output format: "Operating System: win32" (or linux/darwin)
-// Hint: Inspect process.platform
-// YOUR CODE HERE:
+// ========================================================
+// STEP 3: Print the Operating System Platform
+// 💡 Concept: process.platform returns 'win32', 'linux', or 'darwin'.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// console.log(`Operating System: ${process.platform}`);
 
 
-
-// TODO 4: Print the current Process ID (PID)
-// Expected output format: "Process ID (PID): 12345"
-// Hint: Inspect process.pid
-// YOUR CODE HERE:
+// ========================================================
+// STEP 4: Print the current Process ID (PID)
+// 💡 Concept: process.pid is the unique operating system ID for this process.
+// --------------------------------------------------------
+// INSTRUCTION: Uncomment the line below:
+// ========================================================
+// console.log(`Process ID (PID): ${process.pid}`);
 
 
 console.log("Server Simulation: Running smoothly");
