@@ -25,34 +25,35 @@ const students = [
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the server block below:
 // ========================================================
-// const server = http.createServer((req, res) => {
-//   const urlPath = req.url.length > 1 ? req.url.replace(/\/$/, '') : req.url;
-//
-//   if (urlPath === '/') {
-//     res.writeHead(200, { 'Content-Type': 'text/plain' });
-//     res.end("Home Page");
-//   } else if (urlPath === '/about') {
-//     res.writeHead(200, { 'Content-Type': 'text/plain' });
-//     res.end("About Page");
-//   } else if (urlPath === '/students') {
-//     res.writeHead(200, { 'Content-Type': 'application/json' });
-//     res.end(JSON.stringify(students));
-//   } else {
-//     res.writeHead(404, { 'Content-Type': 'text/plain' });
-//     res.end("Page Not Found");
-//   }
-// });
+const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  const urlPath = req.url.length > 1 ? req.url.replace(/\/$/, '') : req.url;
+
+  if (urlPath === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
+    res.end("Home Page");
+  } else if (urlPath === '/about') {
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
+    res.end("About Page");
+  } else if (urlPath === '/students') {
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify(students));
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
+    res.end("Page Not Found");
+  }
+});
 
 // ========================================================
 // STEP 2: Listen on PORT 3000
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the listener block below:
 // ========================================================
-// if (require.main === module && typeof server !== 'undefined' && server) {
-//   server.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
-// }
+if (require.main === module && typeof server !== 'undefined' && server) {
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Export server for automated tests (run: npm run test:04)
 module.exports = typeof server !== 'undefined' ? server : null;

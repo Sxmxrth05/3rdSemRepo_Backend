@@ -25,9 +25,9 @@ const students = [
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/', (req, res) => {
-//   res.send("Welcome to Express Student Management API");
-// });
+app.get('/', (req, res) => {
+  res.send("Welcome to Express Student Management API");
+});
 
 
 // ========================================================
@@ -37,9 +37,9 @@ const students = [
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/students', (req, res) => {
-//   res.json(students);
-// });
+app.get('/students', (req, res) => {
+  res.json(students);
+});
 
 
 // ========================================================
@@ -47,11 +47,11 @@ const students = [
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the listener block below:
 // ========================================================
-// if (require.main === module) {
-//   app.listen(PORT, () => {
-//     console.log(`Express server running on port ${PORT}`);
-//   });
-// }
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Express server running on port ${PORT}`);
+  });
+}
 
 // Export app for automated tests (run: npm run test:05)
 module.exports = app;

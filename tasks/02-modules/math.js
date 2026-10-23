@@ -10,9 +10,9 @@
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the function below:
 // ========================================================
-// function add(a, b) {
-//   return a + b;
-// }
+function add(a, b) {
+  return a + b;
+}
 
 
 // ========================================================
@@ -21,13 +21,13 @@
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the function below:
 // ========================================================
-// function calculateAverage(numbers) {
-//   if (!Array.isArray(numbers) || numbers.length === 0) {
-//     return 0;
-//   }
-//   const total = numbers.reduce((sum, val) => sum + val, 0);
-//   return total / numbers.length;
-// }
+function calculateAverage(numbers) {
+  if (!Array.isArray(numbers) || numbers.length === 0) {
+    return 0;
+  }
+  const total = numbers.reduce((sum, val) => sum + val, 0);
+  return total / numbers.length;
+}
 
 
 // ========================================================
@@ -36,11 +36,11 @@
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the function below:
 // ========================================================
-// function formatStudentName(firstName, lastName) {
-//   const first = (firstName || "").trim();
-//   const last = (lastName || "").trim();
-//   return `${first} ${last}`.trim();
-// }
+function formatStudentName(firstName, lastName) {
+  const first = (firstName || "").trim();
+  const last = (lastName || "").trim();
+  return `${first} ${last}`.trim();
+}
 
 
 // ========================================================
@@ -49,8 +49,8 @@
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the export statement below:
 // ========================================================
-// module.exports = {
-//   add,
-//   calculateAverage,
-//   formatStudentName
-// };
+module.exports = {
+  add,
+  calculateAverage,
+  formatStudentName
+};

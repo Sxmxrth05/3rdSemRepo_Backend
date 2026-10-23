@@ -56,12 +56,12 @@ console.log("=== Task 02: Node.js Modules Demo ===");
 // ========================================================
 // const sum = math.add(25, 75);
 // console.log(`[Custom math] 25 + 75 = ${sum}`);
-//
+
 // const avg = math.calculateAverage([80, 85, 90]);
 // console.log(`[Custom math] Average Marks: ${avg}`);
-//
+
 // const fullName = math.formatStudentName("Asha", "Sharma");
 // console.log(`[Custom math] Student Name: ${fullName}`);
 
 
-console.log("=== Module Execution Completed Successfully ===");
+// console.log("=== Module Execution Completed Successfully ===");

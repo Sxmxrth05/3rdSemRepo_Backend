@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 04: HTTP Routing Tester</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      border: 1px solid #334155;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: #38bdf8;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    button, a.btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-home { background: #0284c7; color: white; }
+    .btn-home:hover { background: #0369a1; }
+    .btn-about { background: #6366f1; color: white; }
+    .btn-about:hover { background: #4f46e5; }
+    .btn-students { background: #10b981; color: white; }
+    .btn-students:hover { background: #059669; }
+    .btn-404 { background: #ef4444; color: white; }
+    .btn-404:hover { background: #dc2626; }
+
+    .response-container {
+      background: #0b1120;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .response-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+    .status-badge {
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .status-200 { background: #064e3b; color: #34d399; }
+    .status-404 { background: #7f1d1d; color: #f87171; }
+    pre {
+      background: #020617;
+      padding: 12px;
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      max-height: 200px;
+    }
+    .links-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #64748b;
+      text-align: center;
+    }
+    .links-note a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    .links-note a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🚀 Task 04: HTTP Route Tester</h1>
+    <p class="subtitle">Click any button below to instantly test your server without typing URLs!</p>
+
+    <div class="button-grid">
+      <button class="btn-home" onclick="testRoute('/')">
+        🏠 GET / (Home)
+      </button>
+      <button class="btn-about" onclick="testRoute('/about')">
+        ℹ️ GET /about
+      </button>
+      <button class="btn-students" onclick="testRoute('/students')">
+        🎓 GET /students (JSON)
+      </button>
+      <button class="btn-404" onclick="testRoute('/unknown-page')">
+        ❌ GET /unknown (404)
+      </button>
+    </div>
+
+    <div class="response-container">
+      <div class="response-header">
+        <span id="endpoint-label">Endpoint: None</span>
+        <span id="status-badge" class="status-badge status-200" style="display: none;">200 OK</span>
+      </div>
+      <pre id="output">Click a button above to see the live response from http://localhost:3000...</pre>
+    </div>
+
+    <div class="links-note">
+      Or open directly in browser tabs:
+      <a href="http://localhost:3000/" target="_blank">Home</a> |
+      <a href="http://localhost:3000/about" target="_blank">About</a> |
+      <a href="http://localhost:3000/students" target="_blank">Students</a> |
+      <a href="http://localhost:3000/invalid" target="_blank">404 Page</a>
+    </div>
+  </div>
+
+  <script>
+    async function testRoute(path) {
+      const output = document.getElementById('output');
+      const label = document.getElementById('endpoint-label');
+      const badge = document.getElementById('status-badge');
+
+      label.textContent = `Endpoint: ${path}`;
+      output.textContent = 'Fetching from http://localhost:3000' + path + '...';
+
+      try {
+        const response = await fetch('http://localhost:3000' + path);
+        badge.style.display = 'inline-block';
+        badge.textContent = `${response.status} ${response.statusText || (response.status === 200 ? 'OK' : 'Not Found')}`;
+        badge.className = `status-badge status-${response.status}`;
+
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          output.textContent = JSON.stringify(data, null, 2);
+        } else {
+          const text = await response.text();
+          output.textContent = text;
+        }
+      } catch (err) {
+        badge.style.display = 'inline-block';
+        badge.textContent = 'Connection Error';
+        badge.className = 'status-badge status-404';
+        output.textContent = 'Could not reach server!\n1. Ensure "node server.js" is running on port 3000.\n2. If browser blocks CORS, click the direct links at the bottom.';
+      }
+    }
+  </script>
+</body>
+</html>

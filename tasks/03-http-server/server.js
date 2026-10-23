@@ -13,7 +13,7 @@
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the line below:
 // ========================================================
-// const http = require('http');
+const http = require('http');
 
 const PORT = 3000;
 
@@ -25,10 +25,10 @@ const PORT = 3000;
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the server creation block below:
 // ========================================================
-// const server = http.createServer((req, res) => {
-//   res.writeHead(200, { 'Content-Type': 'text/plain' });
-//   res.end("Welcome to Node.js Server");
-// });
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end("Welcome to Node.js Server");
+});
 
 // ========================================================
 // STEP 3: Listen on PORT 3000
@@ -36,11 +36,11 @@ const PORT = 3000;
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the listener block below:
 // ========================================================
-// if (require.main === module && typeof server !== 'undefined' && server) {
-//   server.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
-// }
+if (require.main === module && typeof server !== 'undefined' && server) {
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Export server for automated tests (run: npm run test:03)
 module.exports = typeof server !== 'undefined' ? server : null;

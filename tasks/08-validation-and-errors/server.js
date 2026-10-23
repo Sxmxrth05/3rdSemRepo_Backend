@@ -35,18 +35,18 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/students', (req, res) => {
-//   const searchTerm = req.query.search;
-//   if (searchTerm && typeof searchTerm === 'string') {
-//     const term = searchTerm.trim().toLowerCase();
-//     const filtered = students.filter(student =>
-//       (student.name && student.name.toLowerCase().includes(term)) ||
-//       (student.course && student.course.toLowerCase().includes(term))
-//     );
-//     return res.json(filtered);
-//   }
-//   res.json(students);
-// });
+app.get('/students', (req, res) => {
+  const searchTerm = req.query.search;
+  if (searchTerm && typeof searchTerm === 'string') {
+    const term = searchTerm.trim().toLowerCase();
+    const filtered = students.filter(student =>
+      (student.name && student.name.toLowerCase().includes(term)) ||
+      (student.course && student.course.toLowerCase().includes(term))
+    );
+    return res.json(filtered);
+  }
+  res.json(students);
+});
 
 
 // ========================================================
@@ -55,14 +55,14 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const student = students.find(s => s.id === id);
-//   if (!student) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//   res.json(student);
-// });
+app.get('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const student = students.find(s => s.id === id);
+  if (!student) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+  res.json(student);
+});
 
 
 // ========================================================
@@ -72,24 +72,24 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.post('/students', (req, res) => {
-//   const { name, course } = req.body || {};
-//
-//   if (!name || typeof name !== 'string' || !name.trim() ||
-//       !course || typeof course !== 'string' || !course.trim()) {
-//     return res.status(400).json({ error: "Name and course are required fields" });
-//   }
-//
-//   const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
-//   const newStudent = {
-//     id: nextId,
-//     name: name.trim(),
-//     course: course.trim()
-//   };
-//
-//   students.push(newStudent);
-//   res.status(201).json(newStudent);
-// });
+app.post('/students', (req, res) => {
+  const { name, course } = req.body || {};
+
+  if (!name || typeof name !== 'string' || !name.trim() ||
+    !course || typeof course !== 'string' || !course.trim()) {
+    return res.status(400).json({ error: "Name and course are required fields" });
+  }
+
+  const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
+  const newStudent = {
+    id: nextId,
+    name: name.trim(),
+    course: course.trim()
+  };
+
+  students.push(newStudent);
+  res.status(201).json(newStudent);
+});
 
 
 // ========================================================
@@ -99,26 +99,26 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.put('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const student = students.find(s => s.id === id);
-//   if (!student) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//
-//   const { name, course } = req.body || {};
-//   const hasName = name !== undefined && typeof name === 'string' && name.trim().length > 0;
-//   const hasCourse = course !== undefined && typeof course === 'string' && course.trim().length > 0;
-//
-//   if (!hasName && !hasCourse) {
-//     return res.status(400).json({ error: "At least one field (name or course) must be provided" });
-//   }
-//
-//   if (hasName) student.name = name.trim();
-//   if (hasCourse) student.course = course.trim();
-//
-//   res.json(student);
-// });
+app.put('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const student = students.find(s => s.id === id);
+  if (!student) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+
+  const { name, course } = req.body || {};
+  const hasName = name !== undefined && typeof name === 'string' && name.trim().length > 0;
+  const hasCourse = course !== undefined && typeof course === 'string' && course.trim().length > 0;
+
+  if (!hasName && !hasCourse) {
+    return res.status(400).json({ error: "At least one field (name or course) must be provided" });
+  }
+
+  if (hasName) student.name = name.trim();
+  if (hasCourse) student.course = course.trim();
+
+  res.json(student);
+});
 
 
 // ========================================================
@@ -126,15 +126,15 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.delete('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const index = students.findIndex(s => s.id === id);
-//   if (index === -1) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//   students.splice(index, 1);
-//   res.json({ message: "Student deleted successfully" });
-// });
+app.delete('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const index = students.findIndex(s => s.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+  students.splice(index, 1);
+  res.json({ message: "Student deleted successfully" });
+});
 
 
 // ========================================================
@@ -143,9 +143,9 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the middleware below:
 // ========================================================
-// app.use((req, res) => {
-//   res.status(404).json({ error: "Route not found" });
-// });
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
 
 // ========================================================
@@ -154,10 +154,10 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the error handler below:
 // ========================================================
-// app.use((err, req, res, next) => {
-//   console.error("Internal Server Error:", err);
-//   res.status(500).json({ error: "Internal server error" });
-// });
+app.use((err, req, res, next) => {
+  console.error("Internal Server Error:", err);
+  res.status(500).json({ error: "Internal server error" });
+});
 
 
 if (require.main === module) {

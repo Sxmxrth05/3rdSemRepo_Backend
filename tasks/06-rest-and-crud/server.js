@@ -21,7 +21,7 @@ const PORT = 3000;
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the line below:
 // ========================================================
-// app.use(express.json());
+app.use(express.json());
 
 let students = [
   { id: 1, name: "Asha", course: "CSE" },
@@ -41,9 +41,9 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/students', (req, res) => {
-//   res.json(students);
-// });
+app.get('/students', (req, res) => {
+  res.json(students);
+});
 
 
 // ========================================================
@@ -54,14 +54,14 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.get('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const student = students.find(s => s.id === id);
-//   if (!student) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//   res.json(student);
-// });
+app.get('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const student = students.find(s => s.id === id);
+  if (!student) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+  res.json(student);
+});
 
 
 // ========================================================
@@ -72,13 +72,13 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.post('/students', (req, res) => {
-//   const { name, course } = req.body;
-//   const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
-//   const newStudent = { id: nextId, name, course };
-//   students.push(newStudent);
-//   res.status(201).json(newStudent);
-// });
+app.post('/students', (req, res) => {
+  const { name, course } = req.body;
+  const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
+  const newStudent = { id: nextId, name, course };
+  students.push(newStudent);
+  res.status(201).json(newStudent);
+});
 
 
 // ========================================================
@@ -89,16 +89,16 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.put('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const student = students.find(s => s.id === id);
-//   if (!student) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//   if (req.body.name !== undefined) student.name = req.body.name;
-//   if (req.body.course !== undefined) student.course = req.body.course;
-//   res.json(student);
-// });
+app.put('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const student = students.find(s => s.id === id);
+  if (!student) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+  if (req.body.name !== undefined) student.name = req.body.name;
+  if (req.body.course !== undefined) student.course = req.body.course;
+  res.json(student);
+});
 
 
 // ========================================================
@@ -109,15 +109,15 @@ function resetStudents() {
 // --------------------------------------------------------
 // INSTRUCTION: Uncomment the route below:
 // ========================================================
-// app.delete('/students/:id', (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   const index = students.findIndex(s => s.id === id);
-//   if (index === -1) {
-//     return res.status(404).json({ error: "Student not found" });
-//   }
-//   students.splice(index, 1);
-//   res.json({ message: "Student deleted successfully" });
-// });
+app.delete('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const index = students.findIndex(s => s.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: "Student not found" });
+  }
+  students.splice(index, 1);
+  res.json({ message: "Student deleted successfully" });
+});
 
 
 if (require.main === module) {
