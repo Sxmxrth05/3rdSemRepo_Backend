@@ -1,0 +1,12 @@
+{
+  "name": "09-final-challenge",
+  "version": "1.0.0",
+  "description": "Task 09: Capstone Student Management REST API Challenge",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["student-management", "rest-api", "express", "crud"],
+  "author": "Student",
+  "license": "MIT"
+}

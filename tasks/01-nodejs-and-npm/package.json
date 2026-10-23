@@ -1,0 +1,12 @@
+{
+  "name": "01-nodejs-and-npm",
+  "version": "1.0.0",
+  "description": "Task 01: Node.js Fundamentals & npm Scripts",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["nodejs", "npm", "fundamentals"],
+  "author": "Student",
+  "license": "MIT"
+}

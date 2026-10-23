@@ -1,0 +1,31 @@
+{
+  "name": "skill-lab-module-3-backend",
+  "version": "1.0.0",
+  "description": "Module 3: Backend Development with Node.js & Express - Student Management REST API",
+  "main": "tasks/09-final-challenge/server.js",
+  "scripts": {
+    "test": "node tests/test-runner.js",
+    "test:03": "node --test --test-timeout=3000 tests/03-http-server.test.js",
+    "test:04": "node --test --test-timeout=3000 tests/04-http-routing.test.js",
+    "test:05": "node --test --test-timeout=3000 tests/05-express-basics.test.js",
+    "test:06": "node --test --test-timeout=3000 tests/06-rest-and-crud.test.js",
+    "test:08": "node --test --test-timeout=3000 tests/08-validation-and-errors.test.js",
+    "test:09": "node --test --test-timeout=3000 tests/09-final-challenge.test.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "rest-api",
+    "student-management",
+    "skill-lab",
+    "module-3"
+  ],
+  "author": "Skill Lab Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}

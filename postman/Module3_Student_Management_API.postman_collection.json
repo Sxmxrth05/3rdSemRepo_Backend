@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "c1f7a421-4f9e-4b6a-9351-872fba128a39",
+    "name": "Module 3: Student Management REST API",
+    "description": "Postman collection for Module 3 - Backend Development with Node.js and Express. Covers complete CRUD operations, parameter search, and negative error tests (400 and 404).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. CRUD Operations",
+      "item": [
+        {
+          "name": "GET All Students",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"]
+            },
+            "description": "Retrieves the complete list of students stored in the backend in-memory array. Expects HTTP 200 OK and a JSON array."
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Student by ID (Valid)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "1"]
+            },
+            "description": "Retrieves details for a specific student with ID 1. Expects HTTP 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create New Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Riya\",\n  \"course\": \"CSE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"]
+            },
+            "description": "Creates a new student record. Expects HTTP 201 Created and the returned student object with an auto-generated id."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Student by ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"ISE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "2"]
+            },
+            "description": "Updates an existing student's course. Expects HTTP 200 OK and the updated record."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Student by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "1"]
+            },
+            "description": "Deletes the student with ID 1. Expects HTTP 200 OK with confirmation message."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Search & Filtering",
+      "item": [
+        {
+          "name": "GET Search Students (Query Param)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students?search=Asha",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Asha",
+                  "description": "Filter by student name or course (case-insensitive)"
+                }
+              ]
+            },
+            "description": "Searches students whose name or course contains the keyword 'Asha'. Expects HTTP 200 OK."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Error & Edge Case Testing",
+      "item": [
+        {
+          "name": "GET Student with Non-Existent ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "999"]
+            },
+            "description": "Tests server response when a requested student ID does not exist. Expects HTTP 404 Not Found with error message."
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Student - Missing Name (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"CSE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"]
+            },
+            "description": "Tests validation when required field 'name' is omitted. Expects HTTP 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Student - Empty Body (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"]
+            },
+            "description": "Tests validation when request body is empty. Expects HTTP 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "GET Unknown Route (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/non-existent-route",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "non-existent-route"]
+            },
+            "description": "Tests 404 fallback routing when a path is not mapped on the server."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
